@@ -1,18 +1,45 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+  main
+    h1 Search Words
+    .app-main
+      .app-sidebar
+        CSearch(@submit="getWords")
+      .app-content
+        CLoading(v-if="loading")
+        .app-words(v-else)
+          CEmpty(v-if="!words.length")
+          CWord(
+            v-for="word in words"
+            :word="word"
+            :key="word.word"
+          )
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import CSearch from "@/components/CSearch";
+import CWord from "@/components/CWord";
+import CLoading from "@/components/CLoading";
+import CEmpty from "@/components/CEmpty";
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  name: "Home",
+  components: {CEmpty, CLoading, CWord, CSearch},
+  data() {
+    return {
+      loading: false,
+      words: []
+    }
+  },
+  methods: {
+    async getWords(data) {
+      this.loading = true
+      const req = await this.$api.words.getWords(data)
+      this.words = await req['data']
+      this.loading = false
+    },
   }
 }
 </script>
+
+<style scoped lang="scss">
+
+</style>
