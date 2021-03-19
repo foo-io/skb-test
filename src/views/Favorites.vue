@@ -55,7 +55,7 @@ export default {
       } else {
         this.words = this.$api.local.getWords()
       }
-    }
+    },
   }
 }
 </script>

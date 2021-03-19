@@ -18,7 +18,15 @@ export default function () {
         getWords () {
             try {
                 if (localStorage.getItem('words')) {
-                    return JSON.parse(localStorage.getItem('words'))
+                    return JSON.parse(localStorage.getItem('words')).sort((a, b) => {
+                        let nameA = a.word,
+                            nameB = b.word
+                        if (nameA < nameB)
+                            return -1
+                        if (nameA > nameB)
+                            return 1
+                        return 0
+                    })
                 } else {
                     return []
                 }
