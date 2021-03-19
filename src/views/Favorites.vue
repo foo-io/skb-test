@@ -11,11 +11,18 @@ main
       CLoading(v-if="loading")
       .app-words(v-else)
         CEmpty(v-if="!words.length")
-        CWord(
-          v-for="word in words"
-          :word="word"
-          :key="word.word"
+        draggable(
+          v-model="words"
+          group="words"
+          @start="drag=true"
+          @end="drag=false"
+          handle=".app-word__handle"
         )
+          CWord(
+            v-for="word in words"
+            :word="word"
+            :key="word.word"
+          )
 </template>
 
 <script>
