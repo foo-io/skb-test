@@ -5,8 +5,8 @@ main
     .app-sidebar
       CSearch(
         :filter="true"
-        @submit="getLocalWords"
-        )
+        @on-input="searchWord"
+      )
     .app-content
       CLoading(v-if="loading")
       .app-words(v-else)
@@ -45,16 +45,16 @@ export default {
     this.words = this.$api.local.getWords()
   },
   methods: {
-    async getLocalWords(value) {
-      this.loading = true
-      if (value === null) {
-        const req = await this.$api.local.getWords()
-        this.words = await req
+    searchWord(value) {
+      if (value !== '') {
+        let originalList = this.$api.local.getWords()
+        this.words = originalList.filter(elem => {
+          let str = elem.word
+          return !str.indexOf(value)
+        })
       } else {
-        const req = await this.$api.local.searchWord(value)
-        this.words = await req
+        this.words = this.$api.local.getWords()
       }
-      this.loading = false
     }
   }
 }
