@@ -54,9 +54,7 @@ export default {
       }
     },
     onInput() {
-      if (this.checkin()) {
-        this.$emit('on-input', this.word)
-      }
+      this.$emit('on-input', this.word)
     }
   }
 }
