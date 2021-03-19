@@ -2,7 +2,7 @@
 .app-search
   .app-search__form
     .app-search__form-group
-      input(type="text" class="app-input" placeholder="Enter a word..." @keydown.enter="submit" v-model="word")
+      input(type="text" class="app-input" placeholder="Enter a word..." @keydown.enter="submit" @input="onInput" v-model="word")
       button(class="app-button" @click="submit") 🔎
     .app-search__form-group
       .app-errors
@@ -51,6 +51,11 @@ export default {
     submit() {
       if (this.checkin()) {
         this.$emit('submit', this.word)
+      }
+    },
+    onInput() {
+      if (this.checkin()) {
+        this.$emit('on-input', this.word)
       }
     }
   }

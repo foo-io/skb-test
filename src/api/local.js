@@ -37,18 +37,6 @@ export default function () {
                 console.log('API Local: removeWord - ', e)
                 return false
             }
-        },
-        searchWord (word) {
-            try {
-                let words = JSON.parse(localStorage.getItem('words'))
-                return words.filter(elem => {
-                    let str = elem.word
-                    return !str.indexOf(word)
-                });
-            } catch (e) {
-                console.log('API Local: searchWord - ', e)
-                return false
-            }
         }
     }
 }
