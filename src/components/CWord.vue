@@ -1,6 +1,8 @@
 <template lang="pug">
 .app-word
   .app-word__preview
+    .app-word__handle
+      img(src="@/assets/handle.svg" class="app-word__handle-svg")
     button(class="app-word__title app-button" @click="showMore = !showMore") {{ word.word }}
     .app-word__part {{ word['tags'][0] | setPart }}
     .app-word__defs {{ (word['defs'] ? word['defs'][0] : 'defs empty') | removePart}}
@@ -113,6 +115,17 @@ export default {
 
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+  &__handle {
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+
+    &-svg {
+      width: 12px;
     }
   }
   &__title {
